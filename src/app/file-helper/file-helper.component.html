@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" href="assets/stylesheets/application.css"> -->
+   <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <title>KittyBooty</title>
+  </head>
+  <body>
+    <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo center">
+        Kitty Booty
+      </a>
+    </div>
+    <br>
+    <div class="center">
+      <div *ngIf="totalNumFiles > 0 ">
+        <br>
+        <progress [value]="progressNum" [max]="numFiles">0%</progress>
+        <button mat-button color="primary" *ngIf="progressNum <= totalNumFiles" syle="color:black;z-index=200">
+          Loading Files
+        </button>
+        <button mat-button color="primary" *ngIf="progressNum >= totalNumFiles" syle="color:black;z-index=200">
+          Done!
+        </button>
+      </div>
+      <img [ngClass]="{'spin': progressNum < totalNumFiles }" src="assets/icons/png/logo.png" alt="">
+      <br>
+      <!-- class="btn waves-effect waves-light" -->
+      <div class="form-group">
+        <input type="file"
+        id="dirs"
+        (change)="handleFileInput($event.target.files)"
+        webkitdirectory>
+      </div>
+
+       <button *ngIf="message" class="btn waves-effect waves-light" (click)="updateMessage()">{{likeableMessage}}</button>
+       <!-- <button mat-raised-button color="warning" (click)="updateMessage()">{{likeableMessage}}</button> -->
+      <!-- <div *ngIf="filesReady">
+        <button class="btn waves-effect waves-light" (click)=convertFiles()>Convert {{fileCount}} Files To Png</button>
+      </div> -->
+    </div>
+  </nav>
+  </body>
+  <script src='./mainWindow.js'>
+
+  </script>
+</html>
