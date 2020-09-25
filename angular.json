@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "jpg-to-png"
+  "defaultProject": "jpg-to-png",
+  "cli": {
+    "analytics": "18e1a5cf-5e3e-47e6-a90d-d68f4ecf7c50"
+  }
 }

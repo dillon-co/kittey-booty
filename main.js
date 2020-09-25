@@ -21,19 +21,7 @@ function createWindow () {
   win.on('closed', function(){
     win = null
   })
-
-  // exec("which python", (error, stdout, stderr) => {
-  //   if (error) {
-  //     console.log(`error: ${error.message}`);
-  //     return;
-  //   }
-  //   if (stderr) {
-  //     console.log(`stderr: ${stderr}`);
-  //     return;
-  //   }
-  //   python_path = stdout;
-  //   console.log(stdout);
-  // });
+  
 }
 
 app.on('ready', createWindow)
@@ -53,44 +41,28 @@ app.on('activate', function() {
 
 ipcMain.on('send-files-to-python', (event, arg) => {
   console.log(`args are: ${arg}`)
-  counter = 0;
+  doneLoading = false;
   try{
   // pythonPath: `${python_path}`
   // pythonPath: '/usr/bin/python'
-    var options = {
-      scriptPath: `${__dirname}/python_scripts/`,
-      args: arg,
-      pythonPath: '/Users/dilloncortez/anaconda2/bin/python'
-    }
-    let pyshell = new PythonShell('convert_image.py', options);
-    pyshell.on('message', function(message){
-      counter += 1
-      console.log(counter);
-      event.sender.send('conversion-progress', counter)
-    })
-    // spawn = exec.spawn;
-    // process = spawn('python', [`${__dirname}/python_scripts/convert_image.py`, arg], {shell: true})
-    // process = exec(`python ${__dirname}/python_scripts/convert_image.py`, [arg], (error, stdout, stderr) => {
-    //   if(stdout){
-    //     console.log(data)
-    //     counter += 1
-    //     event.sender.send('conversion-progress', counter)
-    //   }
-    //   if (error) {
-    //      console.log(`error: ${error.message}`);
-    //      return;
-    //    }
-    //    if (stderr) {
-    //      console.log(`stderr: ${stderr}`);
-    //      return;
-    //    }
-    //   })
-    // process = exec(`python ${__dirname}/python_scripts/convert_image.py ${arg}`)
-    // process.stdout.on('data', data =>{
-    //   console.log(data)
+  // pythonPath: '/Users/dilloncortez/anaconda2/bin/python'
+    // var options = {
+    //   scriptPath: `${__dirname}/python_scripts/`,
+    //   args: arg,
+    // }
+    // let pyshell = new PythonShell('convert_image.py', options);
+    // pyshell.on('message', function(message){
     //   counter += 1
+    //   console.log(counter);
     //   event.sender.send('conversion-progress', counter)
     // })
+
+    process = exec(`python ${__dirname}/python_scripts/convert_image.py ${arg.join(' ')}`)
+    process.stdout.on('data', data =>{
+      console.log(data)
+      doneLoading = true
+      event.sender.send('conversion-progress', doneLoading)
+    })
   }
   catch(err){
     console.log(err);

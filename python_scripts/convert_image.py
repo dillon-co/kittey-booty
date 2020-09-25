@@ -21,7 +21,7 @@ for file_path in files:
         image_name = file_path.split('/')[-1].split('.jpg')[0]
         im1 = Image.open(file_path)
         im1.save(png_dir+image_name+'.png')
-        print "Image "+image_name+" converted"
+        print("Image "+image_name+" converted")
 
 # except:
 #     print("Unexpected error:", sys.exc_info()[0])

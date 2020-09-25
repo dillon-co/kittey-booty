@@ -20,15 +20,14 @@
     <div class="center">
       <div *ngIf="totalNumFiles > 0 ">
         <br>
-        <progress [value]="progressNum" [max]="numFiles">0%</progress>
-        <button mat-button color="primary" *ngIf="progressNum <= totalNumFiles" syle="color:black;z-index=200">
-          Loading Files
+        <button mat-button color="primary" *ngIf="!filesAreReady && isLoading" syle="color:black;z-index=200">
+          Converting Files
         </button>
-        <button mat-button color="primary" *ngIf="progressNum >= totalNumFiles" syle="color:black;z-index=200">
+        <button mat-button color="primary" *ngIf="!isLoading && filesAreReady" syle="color:black;z-index=200">
           Done!
         </button>
       </div>
-      <img [ngClass]="{'spin': progressNum < totalNumFiles }" src="assets/icons/png/logo.png" alt="">
+      <img [ngClass]="{'spin': isLoading }" src="assets/icons/png/logo.png" alt="">
       <br>
       <!-- class="btn waves-effect waves-light" -->
       <div class="form-group">

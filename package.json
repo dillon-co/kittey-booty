@@ -1,5 +1,6 @@
 {
   "name": "jpg-to-png",
+  "productName": "Kitty Booty",
   "version": "0.0.0",
   "main": "main.js",
   "scripts": {
@@ -10,7 +11,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron-build": "ng build --prod && electron ."
+    "electron-build": "ng build --prod && electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/assets/icons/mac/logo.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . jpg-to-png --overwrite --asar=true --platform=win32 --arch=ia32 --icon=src/assets/icons/win/logo.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Kitty Booty\"",
+    "package-linux": "electron-packager . jpg-to-png --overwrite --asar=true --platform=linux --arch=x64 --icon=src/assets/icons/png/logo.png --prune=true --out=release-builds"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +45,7 @@
     "@types/node": "^12.12.62",
     "codelyzer": "^6.0.0",
     "electron": "^10.1.2",
+    "electron-packager": "^15.1.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
